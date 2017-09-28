@@ -5,17 +5,17 @@
 
 ------
 
-###笔记摘录
+### 笔记摘录
 >牢记机器学习三大口诀：图模型加圈，优化目标加正则，神经网络加层
 
-####1、Object Detection 物体检测
+#### 1、Object Detection 物体检测
 > 1：region proposal，如RCNN、SPP-Net、Fast-RCNN、Faster-RCNN以及MSRA最近的工作R-FCN。
 > 2：不使用region proposal的，YOLO，SSD。
 
-#####1.1 趋势及目标
+##### 1.1 趋势及目标
 - 让不同ROI之间尽量多的共享计算量，并充分利用CNN得到的特征，使得整个detection的速度变快。
 
-#####1.2 region proposal 流程
+##### 1.2 region proposal 流程
 1. 从待检测的图片中，提取出N个**ROI**，这里N远大于图片中真实object的个数。具体的方法有selective search、edge box以及最近流行起来的RPN。
 2. 根据1中检测到的ROI，上CNN对图像进行feature extraction。
 3. 对2中得到的feature进行分类，比如对于PSACAL VOC数据，就是一个21分类的问题（20个object class+background）。
