@@ -27,7 +27,8 @@ Target And Trend 趋势及目标
 
 *作者：Old Xie  链接：https://www.zhihu.com/question/34223049/answer/110071873*
 
-目标检测框架：
+
+#### 目标检测框架：
 1. region proposal + refinement
 检测分两步进行，以Faster R-CNN, R-FCN 等为代表；
 Google 在16年下半年出了一篇paper，详细比较了Faster R-CNN、R-FCN和SSD的各个性能指标，还是很值得一读的。[1611.10012] [Speed/accuracy trade-offs for modern convolutional object detectors](https://arxiv.org/abs/1611.10012)
@@ -39,3 +40,32 @@ Google 在16年下半年出了一篇paper，详细比较了Faster R-CNN、R-FCN�
 当然这个结论并不是绝对成立的，具体得看不同的数据集类型、网络类型等等。
 
 2. 另一类是single stage的，一步到位回归出物体的位置，以SSD, YOLO 等为代表。
+
+--------
+#### 传统的目标检测总的发展方向有两条线：
+一条线是提高检测的精度、另一条线是提高检测的速度（效率）。
+1. 对于提高检测的速度，从最初的R-CNN、Fast R-CNN、Faster R-CNN、SSD一路走来，私以为提高的空间已经不大了。SSD已经把能share的计算完全共享了，要再减小复杂度的话只能从精简网络结构/模型压缩等方面入手了（如PVANET:Lightweight Deep Neural Networks for Real-time Object Detection）。
+2. 对于提高检测的精度，16年下半年来一个趋势是研究不同层之间的特征融合。一个很直观的想法是，神经网络的低层通常保留了比较多的细节特征（fine-grained）；而高层通常有更好的语义特征。所以怎么去结合不同层间的特征成了一个比较火的方向。
+
+#### papers:
+1. 在不同层上面做proposal / pooling:
+[1607.07155] [A Unified Multi-scale Deep Convolutional Neural Network for Fast Object Detection](https://arxiv.org/abs/1607.07155)
+[SDP-CRC:CVPR 2016 Open Access Repository](https://www.cv-foundation.org/openaccess/content_cvpr_2016/html/Yang_Exploit_All_the_CVPR_2016_paper.html)
+2. 把不同层的特征级联在一起:
+[Towards Accurate Region Proposal Generation and Joint Object Detection](https://arxiv.org/abs/1604.00600)
+3. bottom-up / top-down 的特征融合
+[1612.03144] [Feature Pyramid Networks for Object Detection](https://arxiv.org/abs/1612.03144)
+[Top-Down Modulation for Object Detection](https://arxiv.org/abs/1612.06851)
+[Deconvolutional Single Shot Detector](https://arxiv.org/abs/1701.06659)
+4. 多次迭代特征融合
+[1704.05776] [Accurate Single Stage Detector Using Recurrent Rolling Convolution](https://arxiv.org/abs/1704.05776)
+等等类似的工作还有很多，在不同层上去取特征似乎已经成了目标检测一种套路了。
+
+------------------
+目标检测是一个很经典的问题。个人感觉现在要在这上面挖出一些gain来已经不是那么容易的了。或许可以关注一些相关的问题，比如视频中的目标检测、弱监督目标检测等等。
+另外还有不少工作落脚于一些与目标检测紧密相关的任务上。比如Kaiming大神的[Mask R-CNN](https://arxiv.org/abs/1703.06870) 就是 object detection + segmentation + key point detection。这种多任务的学习可能也是一个值得关注的方向。
+
+链接：https://www.zhihu.com/question/34223049/answer/160336559
+
+------------------
+传统方法的对比：
