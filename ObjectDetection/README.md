@@ -31,7 +31,8 @@ Target And Trend 趋势及目标
 #### 目标检测框架：
 1. region proposal + refinement
 检测分两步进行，以Faster R-CNN, R-FCN 等为代表；
-Google 在16年下半年出了一篇paper，详细比较了Faster R-CNN、R-FCN和SSD的各个性能指标，还是很值得一读的。[1611.10012] [Speed/accuracy trade-offs for modern convolutional object detectors](https://arxiv.org/abs/1611.10012)
+Google 在16年下半年出了一篇paper，详细比较了Faster R-CNN、R-FCN和SSD的各个性能指标，还是很值得一读的。
+  - [1611.10012] [Speed/accuracy trade-offs for modern convolutional object detectors](https://arxiv.org/abs/1611.10012)
 
 ![Google paper](https://github.com/longjieCh/DeepLearning/tree/master/ObjectDetection/image/1.png)
 上面的图即来自于Google的论文。一个比较粗略的结论是：
@@ -49,14 +50,14 @@ Google 在16年下半年出了一篇paper，详细比较了Faster R-CNN、R-FCN�
 
 #### papers:
 1. 在不同层上面做proposal / pooling:
-[1607.07155] [A Unified Multi-scale Deep Convolutional Neural Network for Fast Object Detection](https://arxiv.org/abs/1607.07155)
-[SDP-CRC:CVPR 2016 Open Access Repository](https://www.cv-foundation.org/openaccess/content_cvpr_2016/html/Yang_Exploit_All_the_CVPR_2016_paper.html)
+  - [1607.07155] [A Unified Multi-scale Deep Convolutional Neural Network for Fast Object Detection](https://arxiv.org/abs/1607.07155)
+  - [SDP-CRC:CVPR 2016 Open Access Repository](https://www.cv-foundation.org/openaccess/content_cvpr_2016/html/Yang_Exploit_All_the_CVPR_2016_paper.html)
 2. 把不同层的特征级联在一起:
-[Towards Accurate Region Proposal Generation and Joint Object Detection](https://arxiv.org/abs/1604.00600)
+  - [Towards Accurate Region Proposal Generation and Joint Object Detection](https://arxiv.org/abs/1604.00600)
 3. bottom-up / top-down 的特征融合
-[1612.03144] [Feature Pyramid Networks for Object Detection](https://arxiv.org/abs/1612.03144)
-[Top-Down Modulation for Object Detection](https://arxiv.org/abs/1612.06851)
-[Deconvolutional Single Shot Detector](https://arxiv.org/abs/1701.06659)
+  - [1612.03144] [Feature Pyramid Networks for Object Detection](https://arxiv.org/abs/1612.03144)
+  - [Top-Down Modulation for Object Detection](https://arxiv.org/abs/1612.06851)
+  - [Deconvolutional Single Shot Detector](https://arxiv.org/abs/1701.06659)
 4. 多次迭代特征融合
 [1704.05776] [Accurate Single Stage Detector Using Recurrent Rolling Convolution](https://arxiv.org/abs/1704.05776)
 等等类似的工作还有很多，在不同层上去取特征似乎已经成了目标检测一种套路了。
