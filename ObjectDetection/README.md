@@ -32,7 +32,7 @@ Target And Trend 趋势及目标
 1. region proposal + refinement
 检测分两步进行，以Faster R-CNN, R-FCN 等为代表；
 Google 在16年下半年出了一篇paper，详细比较了Faster R-CNN、R-FCN和SSD的各个性能指标，还是很值得一读的。[Speed/accuracy trade-offs for modern convolutional object detectors](https://arxiv.org/abs/1611.10012)
-![Google paper](https://github.com/longjieCh/DeepLearning/tree/master/ObjectDetection/image/1.png)
+google paper![Google paper](./image/1.png)
 上面的图即来自于Google的论文。一个比较粗略的结论是：
 * 第一类框架（Faster R-CNN）的性能会更好，但是速度较慢；
 * 而第二类框架（SSD）的性能略微逊色，但是速度较快。
