@@ -26,3 +26,16 @@ Target And Trend 趋势及目标
 6. 个人感觉object detection是一个比较考验insight以及”让一个idea真正能work的能力“的方向，不像semantic segmentation，后者现在的提升很多靠CRF，有陷入”图模型加圈“（传说中水论文三大法宝之一）的趋势，对数学要求比较高。
 
 *作者：Old Xie  链接：https://www.zhihu.com/question/34223049/answer/110071873*
+
+目标检测框架：
+1. region proposal + refinement
+检测分两步进行，以Faster R-CNN, R-FCN 等为代表；
+Google 在16年下半年出了一篇paper，详细比较了Faster R-CNN、R-FCN和SSD的各个性能指标，还是很值得一读的。[1611.10012] [Speed/accuracy trade-offs for modern convolutional object detectors](https://arxiv.org/abs/1611.10012)
+
+![Google paper](https://github.com/longjieCh/DeepLearning/tree/master/ObjectDetection/image/1.png)
+上面的图即来自于Google的论文。一个比较粗略的结论是：
+* 第一类框架（Faster R-CNN）的性能会更好，但是速度较慢；
+* 而第二类框架（SSD）的性能略微逊色，但是速度较快。
+当然这个结论并不是绝对成立的，具体得看不同的数据集类型、网络类型等等。
+
+2. 另一类是single stage的，一步到位回归出物体的位置，以SSD, YOLO 等为代表。

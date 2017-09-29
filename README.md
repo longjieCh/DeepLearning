@@ -1,6 +1,7 @@
 # DeepLearning
 
-Awesome[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
+Awesome
+[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 > Awesome is an index and an excellent collection about Computer Science.
 
 > And also there is an awesome about computer vision. [awesome-computer-vision](https://github.com/jbhuang0604/awesome-computer-vision)
@@ -12,4 +13,4 @@ Awesome[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78f
 - [Object Detection](#object-detection)
 
 ### Object Detection
-[Object Detection](/Object Detection/)
+details[Object Detection](https://github.com/longjieCh/DeepLearning/tree/master/ObjectDetection)
