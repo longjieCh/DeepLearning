@@ -1,16 +1,16 @@
 # Object Detection
 
 - [Object Detection](#object-detection)
-  - [2017.3](#2017.3)
-  - [2017.4](#2017.4)
-  - [2016.7](#2016.7)
+  - [2017 3](#2017 3)
+  - [2017.4](#2017 4)
+  - [2016 7](#2016.7)
   - [2016.9](#2016.9)
 
-### Object Detection
+## Object Detection
 物体检测
 
 ---------
-#### 2017.3
+### 2017 3
 1. region proposal，如RCNN、SPP-Net、Fast-RCNN、Faster-RCNN以及MSRA最近的工作R-FCN。
 2. 不使用region proposal的，YOLO，SSD。
 
@@ -35,7 +35,7 @@ tips:
 
 -------
 
-#### 2017.4
+### 2017.4
 目标检测框架：
 1. region proposal + refinement
 检测分两步进行，以Faster R-CNN, R-FCN 等为代表；
@@ -76,7 +76,7 @@ papers:
 链接：https://www.zhihu.com/question/34223049/answer/160336559
 
 ------------------
-#### 2016.7
+### 2016.7
 传统方法的对比：
 传统方法使用滑动窗口的框架，把一张图分解成几百万个不同位置，不同尺度的子窗口，针对每一个窗口使用分类器判断是否包含目标物体。
 
@@ -97,7 +97,7 @@ YOLO(You Only Look Once: Unified, Real-Time Object Detection)和SSD(SSD: Single 
 
 ------------
 
-#### 2016.9
+### 2016.9
 1. ROI+DL主流，ROI主要是为了降低运算量，DL为了做检测分类，前面的答主都答得很详细了。
 2. 补充第二点，主要是无监督+目标检测，例如利用optical flow获取video的连续性,把连续性作为一个免费的supervision
 * [Unsupervised Learning of Visual Representations using Videos](http://arxiv.org/abs/1505.00687),
