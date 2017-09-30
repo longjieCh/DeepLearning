@@ -1,7 +1,7 @@
 # Object Detection
 
 - [Object Detection](#object-detection)
-  - [2017 3](#2017-3)
+  - [2017.3](#2017-3)
   - [2017.4](#2017-4)
   - [2016.7](#2016-7)
   - [2016.9](#2016-9)
@@ -97,7 +97,7 @@ YOLO(You Only Look Once: Unified, Real-Time Object Detection)和SSD(SSD: Single 
 
 ------------
 
-### 2016.9
+### 2016 9
 1. ROI+DL主流，ROI主要是为了降低运算量，DL为了做检测分类，前面的答主都答得很详细了。
 2. 补充第二点，主要是无监督+目标检测，例如利用optical flow获取video的连续性,把连续性作为一个免费的supervision
 * [Unsupervised Learning of Visual Representations using Videos](http://arxiv.org/abs/1505.00687),
