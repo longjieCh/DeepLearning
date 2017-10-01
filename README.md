@@ -14,8 +14,9 @@
 - [GAN](#gan)
 
 ### Object Detection
-details
+details:
 [Object Detection](https://github.com/longjieCh/DeepLearning/tree/master/ObjectDetection)
 
 ### GAN
+details:
 [GAN](https://github.com/longjieCh/DeepLearning/tree/master/GAN)
