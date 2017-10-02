@@ -5,6 +5,8 @@
   - [2017.4](#2017-4)
   - [2016.7](#2016-7)
   - [2016.9](#2016-9)
+  - [Summary of FasterRnn RFCN SSD](#summary-of-fasterrnn-rfcn-ssd)
+    - [FASTER RCNN](#faster-rcnn)
 
 ## Object Detection
 物体检测
@@ -105,3 +107,92 @@ YOLO(You Only Look Once: Unified, Real-Time Object Detection)和SSD(SSD: Single 
 * [Unsupervised Learning of Visual Representations using Videos](http://arxiv.org/abs/1505.00687),
 * [UNSUPERVISED FEATURE LEARNING FROM TEMPORAL DATA](http://arxiv.org/pdf/1504.02518v2.pdf)，
 结合之后就对检测能起到增强学习的一定作用。
+
+
+### Summary of FasterRnn RFCN SSD
+
+综述
+> Faster R-CNN、R-FCN 和 SSD 是三种目前最优且应用最广泛的目标检测模型，其他流行的模型通常与这三者类似。
+本文介绍了深度学习目标检测的三种常见模型：Faster R-CNN、R-FCN 和 SSD。
+
+对图像中的每个目标进行识别、分类以外，还可以通过在该目标周围绘制适当大小的边界框（bounding box）来对其进行**定位**。这让目标检测技术较传统计算机视觉处理技术——图像分类而言，难度上升了不少。
+
+目前最成功的目标检测方法是对图像分类模型的扩展。
+Google 为 Tensorflow 发布了一个新的目标检测 API。与其同时发布的还有针对一些特定模型预构建的框架和权重。
+
+* 基于 MobileNets 框架的 Single Shot Multibox Detector（SSD）模型。
+* 基于 Inception V2 框架的 SSD 模型。
+* 使用 ResNet-101 框架的基于 Region 的全卷积网络（R-FCN）模型。
+* 基于 ResNet-101 框架的 Faster RCNN 模型。
+* 基于 Inception ResNet v2 的 Faster RCNN 模型。
+
+#### 本文内容
+1. 深度学习是如何在目标检测中得到应用的。
+2. 这些目标检测模型的设计是如何在相互之间获得灵感的同时也有各自的特点。
+
+#### FASTER RCNN
+> Faster R-CNN 模型现在是一个典型的基于深度学习的目标检测模型。在它的启发下，出现了很多目标检测与分割模型，比如本文中我们将会看到的另外两个模型。然而，要真正开始了解 Faster R-CNN 我们需要理解其之前的 R-CNN 和 Fast R-CNN。所以，现在我们快速介绍一下 Faster R-CNN 的来龙去脉。
+
+##### R-CNN 模型
+
+如果要拟人化比喻，那 R-CNN 肯定是 Faster R-CNN 的祖父了。换句话说，R-CNN 是一切的开端。
+
+R-CNN，或称 Region-based Convolutional Neural Network，其工作包含了三个步骤：
+
+* 借助一个可以生成约 2000 个 region proposal 的「选择性搜索」（Selective Search）算法，R-CNN 可以对输入图像进行扫描，来获取可能出现的目标。
+* 在每个 region proposal 上都运行一个卷积神经网络（CNN）。
+* 将每个 CNN 的输出都输入进：a）一个支持向量机（SVM），以对上述区域进行分类。b）一个线性回归器，以收缩目标周围的边界框，前提是这样的目标存在。
+
+下图具体描绘了上述 3 个步骤：
+
+![rcnn](./image/2.jpg)
+
+换句话说，首先，我们给出一些建议区域，然后，从中提取出特征，之后，再根据这些特征来对这些区域进行分类。
+
+本质而言，我们将**目标检测转化成了图像分类**问题。R-CNN 模型虽然非常直观，但是速度很慢。
+
+##### Fast R-CNN
+
+直接承接 R-CNN 的是 Fast R-CNN。
+
+Fast R-CNN 在很多方面与 R-CNN 类似，但是，凭借两项主要的增强手段，其检测速度较 R-CNN 有所提高：
+
+* 在推荐区域之前，先对图像执行特征提取工作，通过这种办法，后面只用对整个图像使用一个 CNN（之前的 R-CNN 网络需要在 2000 个重叠的区域上分别运行 2000 个 CNN）。
+* 将支持向量机替换成了一个 softmax 层，这种变化并没有创建新的模型，而是将神经网络进行了扩展以用于预测工作。
+
+Fast R-CNN 模型结构示意图：
+
+![fast rcnn](./image/3.jpg)
+
+如图所见，现在我们基于网络最后的特征图（而非原始图像）创建了 region proposals。因此，我们对整幅图只用训练一个 CNN 就可以了。
+
+此外，我们使用了一个 softmax 层来直接输出类（class）的概率，而不是像之前一样训练**很多不同**的 SVM 去对每个目标类（object class）进行分类。**现在，我们只用训练一个神经网络，而之前我们需要训练一个神经网络以及很多 SVM。**
+
+就速度而言，Fast R-CNN 提升了许多。
+
+然而，存在一大未解决的瓶颈：用于生成 region proposal 的**选择搜索算法（selective search algorithm）**。
+
+##### FASTER R-CNN
+
+到现在为止，我们完成了对 Faster R-CNN 两大早期模型的溯源。下面我们开始研究 Faster R-CNN。
+
+Faster R-CNN 的主要创新是，它用一个**快速神经网络**代替了之前**慢速的选择搜索算法（selective search algorithm）**。
+
+**具体而言，它引入了一个 region proposal 网络（RPN）。**
+
+RPN 工作原理：
+
+* 在最后卷积得到的特征图上，使用一个 3x3 的窗口在特征图上滑动，然后将其映射到一个更低的维度上（如 256 维），
+* 在每个滑动窗口的位置上，RPN 都可以基于 k 个固定比例的 anchor box（默认的边界框）生成多个可能的区域。
+* 每个 region proposal 都由两部分组成：a）该区域的 objectness 分数。b）4 个表征该区域边界框的坐标。
+
+换句话说，我们会观察我们最后特征图上的每个位置，然后关注围绕它的 k 个不同的 anchor box：一个高的框、一个宽的框、一个大的框等等。对于每个这些框，不管我们是否认为它包含一个目标，以及不管这个框里的坐标是什么，我们都会进行输出。
+
+下图展示了在单个滑动框位置上发生的操作：
+
+![conv feature map](./image/4.jpg)
+
+图中 2k 分数代表了 k 中每一个边界框正好覆盖「目标」的 softmax 概率。这里注意到，尽管 RPN 输出了边界框的坐标，然而它并不会去对任何可能的目标进行分类：它惟一的工作仍然是给出**对象区域**。如果一个 anchor box 在特定阈值之上存在一个「objectness」分数，那么这个边界框的坐标就会作为一个 region proposal 被向前传递。
+
+一旦我们有了 region proposal，我们就直接把他们输入一个本质上是 Fast R-CNN 的模型。我们再添加一个池化层、一些全连接层以及最后，一个 softmax 分类层和边界框回归器（bounding box regressor）。所以在某种意义上，Faster R-CNN=RPN+Fast R-CNN。
+
