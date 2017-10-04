@@ -45,7 +45,7 @@
 检测分两步进行，以Faster R-CNN, R-FCN 等为代表；
 Google 在16年下半年出了一篇paper，详细比较了Faster R-CNN、R-FCN和SSD的各个性能指标，还是很值得一读的。[Speed/accuracy trade-offs for modern convolutional object detectors](https://arxiv.org/abs/1611.10012)
 
-![Google paper](./image/1.png)
+![Google paper](./image/0.png)
 
 上面的图即来自于Google的论文。一个比较粗略的结论是：
 * 第一类框架（Faster R-CNN）的性能会更好，但是速度较慢；
@@ -133,6 +133,8 @@ Google 为 Tensorflow 发布了一个新的目标检测 API。与其同时发布
 #### FASTER RCNN
 > Faster R-CNN 模型现在是一个典型的基于深度学习的目标检测模型。在它的启发下，出现了很多目标检测与分割模型，比如本文中我们将会看到的另外两个模型。然而，要真正开始了解 Faster R-CNN 我们需要理解其之前的 R-CNN 和 Fast R-CNN。所以，现在我们快速介绍一下 Faster R-CNN 的来龙去脉。
 
+![Summary Faster Rcnn](./image/1.jpeg)
+
 ##### R-CNN 模型
 
 如果要拟人化比喻，那 R-CNN 肯定是 Faster R-CNN 的祖父了。换句话说，R-CNN 是一切的开端。
@@ -145,7 +147,7 @@ R-CNN，或称 Region-based Convolutional Neural Network，其工作包含了三
 
 下图具体描绘了上述 3 个步骤：
 
-![rcnn](./image/2.png)
+![R cnn](./image/2.png)
 
 换句话说，首先，我们给出一些建议区域，然后，从中提取出特征，之后，再根据这些特征来对这些区域进行分类。
 
@@ -162,7 +164,7 @@ Fast R-CNN 在很多方面与 R-CNN 类似，但是，凭借两项主要的增�
 
 Fast R-CNN 模型结构示意图：
 
-![fast rcnn](./image/3.png)
+![Fast rcnn](./image/3.png)
 
 如图所见，现在我们基于网络最后的特征图（而非原始图像）创建了 region proposals。因此，我们对整幅图只用训练一个 CNN 就可以了。
 
@@ -190,13 +192,13 @@ RPN 工作原理：
 
 下图展示了在单个滑动框位置上发生的操作：
 
-![conv feature map](./image/4.png)
+![Conv feature map](./image/4.png)
 
 图中 2k 分数代表了 k 中每一个边界框正好覆盖「目标」的 softmax 概率。这里注意到，尽管 RPN 输出了边界框的坐标，然而它并不会去对任何可能的目标进行分类：它惟一的工作仍然是给出**对象区域**。如果一个 anchor box 在特定阈值之上存在一个「objectness」分数，那么这个边界框的坐标就会作为一个 region proposal 被向前传递。
 
 一旦我们有了 region proposal，我们就直接把他们输入一个本质上是 Fast R-CNN 的模型。我们再添加一个池化层、一些全连接层以及最后，一个 softmax 分类层和边界框回归器（bounding box regressor）。所以在某种意义上，Faster R-CNN=RPN+Fast R-CNN。
 
-![faster rcnn](./image/5.png)
+![Faster rcnn](./image/5.png)
 
 总体而言，Faster R-CNN 较 Fast R-CNN 在速度上有了大幅提升，而且其精确性也达到了最尖端的水平。值得一提的是，尽管未来的模型能够在检测速度上有所提升，但是几乎没有模型的表现能显著超越 Faster R-CNN。换句话说，Faster R-CNN 也许不是目标检测最简单、最快的方法，但是其表现还是目前最佳的。例如，Tensorflow 应用 Inception ResNet 打造的 Faster R-CNN 就是他们速度最慢，但却最精准的模型。
 
@@ -230,13 +232,13 @@ R-FCN 的解决方案：位置敏感分数图
 
 下面是 R-FCN 的示意图，用 RPN 生成 RoI：
 
-![r fcn](./image/6.png)
+![R fcn](./image/6.png)
 
 当然，即便有上述文字以及图片的解释，你可能仍然不太明白这个模型的工作方式。老实说，当你可以实际看到 R-FCN 的工作过程时，你会发现理解起来会更加简单。
 
 下面就是一个在实践中应用的 R-FCN，它正在从图中检测一个婴儿：
 
-![r fcn processing](./image/7.png)
+![R fcn processing](./image/7.png)
 
 我们只用简单地让 R-FCN 去处理每个 region proposal，然后将其切分成子区域，在子区域上反复询问系统：「这看起来像是婴儿的『上-左』部分吗？」，「这看起来像是婴儿的『上-中』部分吗？」，「这看起来像是婴儿的『上-右』部分吗？」等等。系统会对所有类重复这个过程。如果有足够的子区域表示「是的，我的确匹配婴儿的这个部分！」那么 RoI 就会通过对所有类进行 softmax 回归的方式被分类成一个婴儿。」
 
@@ -262,11 +264,11 @@ SSD 的工作方式听上去很直接，但是训练它却会面临一个不一�
 
 下图是 SSD 的架构示意图：
 
-![ssd](./image/8.png)
+![Ssd](./image/8.png)
 
 如上所述，最终有可缩小尺寸的「额外特征层」。这些尺寸变化的特征图有助于捕捉不同大小的目标。例如，下面是一个正在执行的 SSD。
 
-![ssd processing](./image/9.png)
+![Ssd processing](./image/9.png)
 
 在更小的特征图中（比如 4x4），每一单元覆盖图像的一个更大区域，使其探测更大的目标。region proposal 与分类同时被执行：假设 p 为目标类别，每个边界框与一个 (4+p)-维度向量相连接，其输出 4 个框偏移坐标和 p 分类概率。在最后一步中，softmax 又一次被用来分类目标。
 
